@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pgk.delivery.Order.Mapper.OrderMapper">
+
+	<resultMap id="shopping" type="com.pgk.delivery.Order.Pojo.Shopping">
+		<id column="shoppingOrderId" property="shoppingOrderId"></id>
+		<result column="shoppingNumber" property="commodityNumber"></result>
+		<result column="shoppingCommodityId" property="commodityId"></result>
+	</resultMap>
+    <insert id="addOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId" parameterType="com.pgk.delivery.Order.Pojo.Order">
+INSERT INTO `order` (
+	shopId,
+	orderBuyerId,
+	orderRiderId,
+	orderState,
+	orderBuyerTime,
+	orderSellerTime,
+	orderRiderTime,
+	orderRiderTime1,
+	orderBuyerTime1
+)
+VALUES
+	(#{shopId}, #{orderBuyerId}, #{orderRiderId},#{orderState},
+	#{orderBuyerTime},#{orderSellerTime},#{orderRiderTime},#{orderRiderTime1},#{orderBuyerTime1})
+    </insert>
+	<insert id="addShopping" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
+		INSERT INTO shopping (
+	shoppingCommodityId,
+	shoppingNumber,
+	shoppingOrderId
+)
+VALUES
+	(#{commodityId},#{a},#{shoppingOrderId})
+	</insert>
+	<update id="deleteCommodityNumber" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
+	update commodity set commodityNumber=#{commodityNumber} where commodityId = #{commodityId}
+	</update>
+	<delete id="deleteOrder">
+		  delete from `order` where orderId = #{orderId}
+	</delete>
+	<delete id="delectShopping">
+        delete from shopping where shoppingOrderId = #{orderId}
+    </delete>
+	<select id="selectOrder" resultType="com.pgk.delivery.Order.Pojo.Order">
+	SELECT
+	orderId,
+	shopId,
+	orderBuyerId,
+	orderRiderId,
+	orderState,
+    orderBuyerTime,
+	orderSellerTime,
+	orderRiderTime,
+	orderRiderTime1,
+    orderBuyerTime1
+FROM
+	`order`
+<if test="orderBuyerId != null">
+	where orderBuyerId = #{orderBuyerId}
+</if>
+<if test="shopId != 0">
+	where shopId = #{shopId}
+</if>
+<if test="stateOpen">
+	AND orderState = #{orderState}
+</if>
+	</select>
+	<select id="selectShopping" parameterType="java.lang.Integer" resultMap="shopping">
+SELECT
+	shoppingCommodityId,
+	shoppingNumber,
+	shoppingOrderId,
+	commodity.commodityName,
+	commodity.commodityImg,
+	commodity.commodityPrice
+FROM
+	shopping JOIN commodity ON shopping.shoppingCommodityId = commodity.commodityId
+WHERE
+	shoppingOrderId = #{shoppingOrderId}
+	</select>
+	<update id="updateState" parameterType="com.pgk.delivery.Order.Pojo.Order">
+	update `order` set orderState=#{orderState},orderSellerTime=#{orderSellerTime} where orderId = #{orderId}
+	</update>
+</mapper>

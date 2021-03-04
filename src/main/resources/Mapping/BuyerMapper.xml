@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pgk.delivery.Buyer.Mapper.BuyerMapper">
+	<insert id="addAddress">
+	INSERT INTO buyer (
+	buyerName,
+	buyerSex,
+	buyerAddress,
+	buyerTel
+)
+VALUES
+	(#{buyerName},#{buyerSex},#{buyerAddress},#{buyerTel})
+	</insert>
+	<update id="updateAddress">
+UPDATE
+    buyer
+SET
+    buyerName = #{buyerName},
+    buyerSex = #{buyerSex},
+    buyerAddress = #{buyerAddress},
+    buyerTel = #{buyerTel}
+WHERE
+	buyerAccountName = #{buyerAccountName}
+	</update>
+    <select id="getBuyerAddress" resultType="com.pgk.delivery.Buyer.Pojo.Buyer">
+ SELECT
+	buyerAccountName,
+	buyerName,
+	buyerSex,
+	buyerAddress,
+	buyerTel
+FROM
+	buyer
+WHERE
+	buyerAccountName = #{accountName}
+    </select>
+
+</mapper>

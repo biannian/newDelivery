@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.pgk.delivery.Shop.Mapper.ShopMapper">
+    <resultMap id="shopMap" type="com.pgk.delivery.Shop.Pojo.Shop">
+        <id column="shopId" property="shopId"/>
+        <result column="shopName" property="shopName"/>
+        <result column="shopImg" property="shopImg"/>
+        <result column="shopSellerId" property="shopSellerId"/>
+        <result column="shopAddress" property="shopAddress"/>
+        <result column="shopStartPrice" property="shopStartPrice"/>
+        <result column="shopSendPrice" property="shopSendPrice"/>
+        <result column="shopSalesVolume" property="shopSalesVolume"/>
+        <result column="shopScore" property="shopScore"/>
+        <collection property="commodity" ofType="com.pgk.delivery.Shop.Pojo.Commodity">
+            <id column="commodityId" property="commodityId"/>
+            <result column="commodityShopId" property="commodityShopId"/>
+            <result column="commodityName" property="commodityName"/>
+            <result column="commodityNumber" property="commodityNumber"/>
+            <result column="commodityPrice" property="commodityPrice"/>
+            <result column="commodityImg" property="commodityImg"/>
+            <result column="commodityMenuId" property="commodityMenuId"/>
+            <result column="shopMenuId" property="shopMenuId"/>
+            <result column="shopMenuName" property="shopMenuName"/>
+        </collection>
+    </resultMap>
+    <insert id="commodityAdd" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
+        insert into commodity(
+commodityName,
+commodityShopId,
+commodityNumber,
+commodityPrice,
+commodityImg,
+commodityMenuId
+        )values (#{commodityName},#{commodityShopId},#{commodityNumber},#{commodityPrice},#{commodityImg},#{commodityMenuId})
+    </insert>
+    <insert id="addMenu" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
+insert into shopmenu (shopMenuName) values (#{shopMenuName})
+ </insert>
+    <insert id="addShop" parameterType="com.pgk.delivery.Shop.Pojo.Shop">
+INSERT INTO shop (
+	shopName,
+	shopImg,
+	shopSellerId,
+	shopAddress,
+	shopStartPrice,
+	shopSendPrice
+)
+VALUES(
+    #{shopName},
+	#{shopImg},
+	#{shopSellerId},
+	#{shopAddress},
+	#{shopStartPrice},
+	#{shopSendPrice}
+)
+    </insert>
+    <update id="commodityEdit" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
+  update commodity set
+commodityName = #{commodityName},
+commodityShopId = #{commodityShopId} ,
+commodityNumber = #{commodityNumber},
+commodityPrice =#{commodityPrice} ,
+commodityImg = #{commodityImg} ,
+commodityMenuId = #{commodityMenuId}
+where commodityId = #{commodityId}
+    </update>
+    <update id="updateShopInformation">
+update shop set
+	shopName = #{shopName},
+	shopImg =#{shopImg},
+	shopSellerId = #{shopSellerId},
+	shopAddress = #{shopAddress},
+	shopStartPrice = #{shopStartPrice},
+	shopSendPrice =#{shopSendPrice}
+WHERE
+    shopSellerId = #{shopSellerId}
+    </update>
+    <delete id="delectCommodity">
+        delete from commodity where commodityId = #{commodityId}
+    </delete>
+
+    <select id="queryAll" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+        SELECT
+        shopId,
+        shopName,
+        shopImg,
+        shopSellerId,
+        shopAddress,
+        shopStartPrice,
+        shopSendPrice,
+        shopSalesVolume,
+        shopScore
+        FROM
+        shop
+    </select>
+    <select id="queryById" resultMap="shopMap">
+        SELECT
+        shop.shopId,
+        shop.shopName,
+        shop.shopImg,
+        shop.shopSellerId,
+        shop.shopAddress,
+        shop.shopStartPrice,
+        shop.shopSendPrice,
+        shop.shopSalesVolume,
+        shop.shopScore,
+        commodity.commodityId,
+        commodity.commodityName,
+        commodity.commodityNumber,
+        commodity.commodityPrice,
+        commodity.commodityImg,
+        commodity.commodityShopId,
+        commodity.commodityMenuId,
+        shopmenu.shopMenuId,
+        shopmenu.shopMenuName
+        FROM
+        shop
+        INNER JOIN commodity ON shop.shopId = commodity.commodityShopId
+        INNER JOIN shopmenu ON commodity.commodityMenuId = shopmenu.shopMenuId
+        WHERE
+        shopId =#{shopId}
+    </select>
+    <select id="queryByName" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+        SELECT
+        shopId,
+        shopName,
+        shopImg,
+        shopSellerId,
+        shopAddress,
+        shopStartPrice,
+        shopSendPrice,
+        shopSalesVolume,
+        shopScore
+        FROM
+        shop
+        WHERE
+        shopName LIKE "%" #{shopName}"%"
+    </select>
+    <select id="queryAllCommodity" parameterType="java.lang.Integer" resultType="com.pgk.delivery.Shop.Pojo.Commodity">
+        SELECT
+        commodityId,
+        commodityName,
+        commodityNumber,
+        commodityPrice,
+        commodityImg,
+        commodityShopId,
+        commodityMenuId,
+        shopMenuName,
+        shopName
+        FROM
+        commodity
+        LEFT JOIN shopmenu ON commodityMenuId = shopMenuId
+        LEFT JOIN shop ON commodityShopId = shopId
+        <if test="commodityShopId != null">
+            where commodityShopId = #{commodityShopId}
+        </if>
+    </select>
+    <select id="selectMenu" resultType="com.pgk.delivery.Shop.Pojo.Commodity">
+        select shopMenuId,shopMenuName from shopmenu
+    </select>
+    <select id="queryCommodityById" resultType="com.pgk.delivery.Shop.Pojo.Commodity">
+        SELECT
+        commodityId,
+        commodityName,
+        commodityNumber,
+        commodityPrice,
+        commodityImg,
+        commodityShopId,
+        commodityMenuId
+        FROM
+        commodity
+            where commodityId = #{commodityId}
+    </select>
+    <select id="queryForName" resultType="java.lang.String">
+           SELECT shopName from shop WHERE
+        shopId =  #{shopId}
+    </select>
+    <select id="queryShopName" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+           SELECT shopName,shopId from shop WHERE
+        shopSellerId =  #{sellerId}
+    </select>
+    <select id="selectShopInformation" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+SELECT
+	shopId,
+	shopName,
+	shopImg,
+	shopSellerId,
+	shopAddress,
+	shopStartPrice,
+	shopSendPrice
+FROM
+	shop
+WHERE
+    shopSellerId = #{accountUserId}
+    </select>
+</mapper>
