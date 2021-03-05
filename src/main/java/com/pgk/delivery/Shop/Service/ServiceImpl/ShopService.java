@@ -136,4 +136,10 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
         int msg =mapper.updateShopInformation(shop);
         return Result.success(msg);}
     }
+
+    @Override
+    public Result<?> queryByType(int shopTypeId) {
+        List<Shop> shop = mapper.queryByType(shopTypeId);
+        return Result.success(shop);
+    }
 }

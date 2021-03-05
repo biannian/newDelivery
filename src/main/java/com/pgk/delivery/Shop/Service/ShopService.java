@@ -28,4 +28,6 @@ public interface ShopService {
     Result<?> selectShopInformation(int sellerId);
 
     Result<?> updateShopInformation(Shop shop);
+
+    Result<?> queryByType(int shopTypeId);
 }

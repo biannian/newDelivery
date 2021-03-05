@@ -10,12 +10,13 @@ public class Shop {
     private int shopId;
     private String shopName;
     private String shopImg;
-    private int shopSellerId;
-    private String shopAddress;
-    private double shopStartPrice;
-    private double shopSendPrice;
-    private double shopSalesVolume;
-    private double shopScore;
+    private int shopSellerId;//卖家账户ID
+    private String shopAddress;//店铺地址
+    private double shopStartPrice;//起送价格
+    private double shopSendPrice;//配送费
+    private double shopSalesVolume;//店铺销量
+    private double shopScore;//店铺评分
+    private String shopTypeId;//店铺种类id
 
     private List<Commodity> commodity;
 

@@ -193,4 +193,20 @@ FROM
 WHERE
     shopSellerId = #{accountUserId}
     </select>
+    <select id="queryByType" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+ SELECT
+        shopId,
+        shopName,
+        shopImg,
+        shopSellerId,
+        shopAddress,
+        shopStartPrice,
+        shopSendPrice,
+        shopSalesVolume,
+        shopScore
+        FROM
+        shop
+        WHERE
+        shopTypeId = #{shopType}
+    </select>
 </mapper>

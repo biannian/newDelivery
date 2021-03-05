@@ -39,6 +39,13 @@ public class ShopController {
         Result<?> shop = service.queryByName(shopName);
         return shop;
     }
+    @PassToken
+    @RequestMapping("/queryByType.do")
+    public Result<?> queryByType(int shopTypeId) {
+        Result<?> shop = service.queryByType(shopTypeId);
+        return shop;
+    }
+
 
     @RequestMapping("/queryById.do")
     public Result<?> queryById(int shopId, HttpServletRequest request, HttpServletResponse response) {
@@ -63,7 +70,6 @@ public class ShopController {
             return null;
         }
     }
-
     /**
      * 每次添加商品时的种类选项查询
      *

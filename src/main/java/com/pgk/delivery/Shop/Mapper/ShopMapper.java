@@ -37,4 +37,6 @@ public interface ShopMapper {
     int updateShopInformation(Shop shop);
 
     int addShop(Shop shop);
+
+    List<Shop> queryByType(int shopTypeId);
 }
