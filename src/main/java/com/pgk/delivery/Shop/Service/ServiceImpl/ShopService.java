@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -37,13 +38,45 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
             return Result.fail(-1, "没有此店铺");
         }
         List<Commodity> commoditys = shop.getCommodity();
-        Map shopMenu = new HashMap<>();
+        HashMap<Integer,String> shopMenu = new HashMap<>();
         for (Commodity com :
                 commoditys) {
             shopMenu.put(com.getCommodityMenuId(), com.getShopMenuName());
         }
-        shop.getCommodity().sort(Comparator.comparing(commodity -> commodity.getShopMenuId()));
-        Map map = new HashMap();
+        //给菜单排序
+        shop.getCommodity().sort(Comparator.comparing(Commodity::getShopMenuId));
+
+        HashMap<String, List<Commodity>> commodity = new HashMap<>();
+
+//        for (Commodity c : commoditys) {
+//
+//            if (commodity.get(c.getCommodityMenuId()) == null){
+//                List<Commodity> list = new LinkedList<>();
+//                list.add(c);
+//                commodity.put(c.getCommodityMenuId(), list);
+//                continue;
+//            }
+//            List<Commodity> list = commodity.get(c.getCommodityMenuId());
+//            list.add(c);
+//        }
+
+        for (int i = 0; i <commoditys.size() ; i++) {
+            for (int j = 0; j <shopMenu.size() ; j++) {
+                if (commoditys.get(i).getShopMenuId() == j){
+                   if (commodity.get(j) == null){
+                       List<Commodity> list = new LinkedList<>();
+                       list.add(commoditys.get(j));
+                       commodity.put(shopMenu.get(j),list);
+                   }else {
+                       List<Commodity> list = commodity.get(j);
+                       list.add(commoditys.get(j));
+                       commodity.put(shopMenu.get(j),list);
+                   }
+
+                }
+            }
+        }
+        HashMap<String,Object> map = new HashMap<>();
         map.put("shopMenu", shopMenu);
         map.put("shop", shop);
         return Result.success(map);

@@ -46,17 +46,11 @@ public class ShopController {
         return shop;
     }
 
-
+    @PassToken
     @RequestMapping("/queryById.do")
-    public Result<?> queryById(int shopId, HttpServletRequest request, HttpServletResponse response) {
-        int accountLimit = (int) request.getAttribute("accountLimit");
-        if (accountLimit == 1) {
+    public Result<?> queryById(int shopId ) {
             Result<?> shop = service.queryById(shopId);
             return shop;
-        } else {
-            response.setStatus(403);
-            return null;
-        }
     }
 
     @RequestMapping("/queryAllCommodity.do")

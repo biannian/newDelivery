@@ -10,6 +10,7 @@
         <result column="shopStartPrice" property="shopStartPrice"/>
         <result column="shopSendPrice" property="shopSendPrice"/>
         <result column="shopSalesVolume" property="shopSalesVolume"/>
+        <result column="shopInfo" property="shopInfo"/>
         <result column="shopScore" property="shopScore"/>
         <collection property="commodity" ofType="com.pgk.delivery.Shop.Pojo.Commodity">
             <id column="commodityId" property="commodityId"/>
@@ -21,6 +22,7 @@
             <result column="commodityMenuId" property="commodityMenuId"/>
             <result column="shopMenuId" property="shopMenuId"/>
             <result column="shopMenuName" property="shopMenuName"/>
+
         </collection>
     </resultMap>
     <insert id="commodityAdd" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
@@ -104,6 +106,7 @@ WHERE
         shop.shopSendPrice,
         shop.shopSalesVolume,
         shop.shopScore,
+        shop.shopInfo,
         commodity.commodityId,
         commodity.commodityName,
         commodity.commodityNumber,

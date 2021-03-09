@@ -16,7 +16,8 @@ public class Shop {
     private double shopSendPrice;//配送费
     private double shopSalesVolume;//店铺销量
     private double shopScore;//店铺评分
-    private String shopTypeId;//店铺种类id
+    private int shopTypeId;//店铺种类id
+    private String shopInfo;//店铺介绍
 
     private List<Commodity> commodity;
 
