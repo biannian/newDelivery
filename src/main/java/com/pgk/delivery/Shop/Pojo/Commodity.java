@@ -11,7 +11,8 @@ public class Commodity {
     private double commodityPrice;
 
     private String commodityImg;
-
+    //购买的数量
+    private int shoppingNumber;
     private int commodityMenuId;
     private int shopMenuId;
     private String shopMenuName;
