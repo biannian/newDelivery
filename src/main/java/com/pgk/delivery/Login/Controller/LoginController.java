@@ -24,7 +24,6 @@ public class LoginController {
     @RequestMapping(value = "/login.do")
     public Result<?> login(String accountName, String accountPassword) {
         Result<?> result = service.login(accountName, accountPassword);
-
         return result;
     }
 

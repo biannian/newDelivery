@@ -37,7 +37,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
         }
         //默认全部检查
         else {
-
             // 执行认证
             if (token == null) {
                 //登录失效了，没有taken了
@@ -54,7 +53,7 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
             }
             //验证token是否过期
             if (JWTUtil.verifyToken(token, accountName)) {
-                response.setStatus(ErrorCode.AUTH_ERROR.getValue());
+                response.setStatus(402);
                 return false;
             }
             int accountLimit = (JWTUtil.getClaimByName(token, "accountLimit").asInt());
