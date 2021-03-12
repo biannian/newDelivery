@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -22,7 +24,7 @@ public class LoginService {
     public Result<?> queryById(String accountName) {
         List<Account> accounts = mapper.queryById(accountName);
 
-        if (accounts != null && accounts.size() == 0) {
+        if (accounts.size() == 0) {
             return Result.fail(-1);
         } else {
             return Result.success(accounts);
@@ -49,7 +51,7 @@ public class LoginService {
             return Result.fail(ErrorCode.USERNAME_OR_PASSWORD_ERROR);
         } else {
             if (!account.isAccountBan()) {
-                String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(),account.getAccountUserId());
+                String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(), account.getAccountUserId());
 
                 return Result.success(jwtToken);
             } else {
@@ -63,7 +65,7 @@ public class LoginService {
         if (account.getAccountLimit() == 0) {
             return Result.fail(ErrorCode.REGISTER_ERRoR);
         } else {
-            switch (account.getAccountLimit()){
+            switch (account.getAccountLimit()) {
                 case 1:
                     account.setTable("buyer");
                     account.setTableId("buyerId");
@@ -88,7 +90,7 @@ public class LoginService {
 
             int msg = mapper.register(account);
             if (msg == 1) {
-                String jwtToken = JWTUtil.createToken(account.getAccountName(), account.getAccountLimit(),account.getAccountUserId());
+                String jwtToken = JWTUtil.createToken(account.getAccountName(), account.getAccountLimit(), account.getAccountUserId());
                 return Result.success(jwtToken);
             } else {
                 return Result.fail(ErrorCode.REGISTER_ERRoR);
@@ -123,11 +125,24 @@ public class LoginService {
 
     public boolean selectAddress(Account account) {
         Account msg = mapper.selectAddress(account);
-        if (msg == null){
+        if (msg == null) {
             return false;
-        }else {
+        } else {
             return true;
         }
+    }
+    public Result<?> wxLogin(String openId,String wxName,String wxImage) {
+        Account msg = mapper.wxLogin(openId);
+        HashMap map = new HashMap();
 
+        if (msg== null){
+            mapper.addAccount(openId,wxName,wxImage);
+           map.put("openId",openId);
+           map.put("token","");
+        }else {
+            String jwtToken = JWTUtil.createToken(msg.getAccountName(), msg.getAccountLimit(), msg.getAccountUserId());
+            map.put("token",jwtToken);
+        }
+        return Result.success(map);
     }
 }

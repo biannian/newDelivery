@@ -14,4 +14,7 @@ public class Account {
     private String tableId;
     private String tableAccountName;
     private String buyerName;
+    private String openId;//微信验证码
+    private String wxName;//微信用户名
+    private String wxImage;//微信头像
 }

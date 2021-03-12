@@ -43,27 +43,38 @@ WHERE
         FROM
         account
     </select>
-    <insert id="register" parameterType="com.pgk.delivery.Login.Pojo.Account">
-        INSERT INTO account (
-        accountId,
-        accountName,
-        accountPassword,
-        accountLimit,
-        accountBan,
-        accountUserId
-        )
-        VALUES
-        (
-        NULL,
-        #{accountName},#{accountPassword},#{accountLimit},#{accountBan},#{accountUserId})
-    </insert>
+    <update id="register" parameterType="com.pgk.delivery.Login.Pojo.Account">
+UPDATE account
+SET accountPassword =#{accountPassword},accountName =#{accountName},accountLimit = #{accountLimit},accountUserId=#{accountUserId},
+accountBan=#{accountBan}
+WHERE
+	openId =#{openId}
+    </update>
     <insert id="addInformation" parameterType="com.pgk.delivery.Login.Pojo.Account">
         insert into ${table} (${tableId},${tableAccountName}) values (null,#{accountName})
+    </insert>
+    <insert id="addAccount">
+        INSERT INTO account (openId, wxName, wxImage)
+        VALUES
+        (#{openId},#{wxName},#{wxImage})
     </insert>
     <select id="selectUserId" parameterType="com.pgk.delivery.Login.Pojo.Account"  resultType="java.lang.Integer">
         select ${tableId} from ${table} where ${tableAccountName} = #{accountName}
     </select>
     <select id="selectAddress" resultType="com.pgk.delivery.Login.Pojo.Account" parameterType="java.lang.Integer">
         select buyerName from buyer where buyerId = #{accountUserId}
+    </select>
+    <select id="wxLogin" resultType="com.pgk.delivery.Login.Pojo.Account">
+         SELECT
+        accountName,
+        accountPassword,
+        accountLimit,
+        accountBan,
+        accountUserId,
+        openId
+        FROM
+        account
+        WHERE
+        openId = #{openId}
     </select>
 </mapper>

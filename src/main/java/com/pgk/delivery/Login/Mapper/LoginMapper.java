@@ -30,4 +30,8 @@ public interface LoginMapper {
     int updatePassword(Account account);
 
     Account selectAddress(Account account);
+
+    Account wxLogin(String openId );
+
+    int addAccount(String openId,String wxName,String wxImage );
 }
