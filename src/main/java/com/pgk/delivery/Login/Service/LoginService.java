@@ -52,7 +52,6 @@ public class LoginService {
         } else {
             if (!account.isAccountBan()) {
                 String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(), account.getAccountUserId());
-
                 return Result.success(jwtToken);
             } else {
                 return Result.fail(ErrorCode.ACCOUNT_BAN);
