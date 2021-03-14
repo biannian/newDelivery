@@ -4,14 +4,12 @@ import com.alibaba.fastjson.JSONObject;
 import com.pgk.delivery.Login.Pojo.Account;
 import com.pgk.delivery.Login.Pojo.WxCode;
 import com.pgk.delivery.Login.Service.LoginService;
-import com.pgk.delivery.Util.AesCbcUtil;
 import com.pgk.delivery.Util.HttpRequest;
 import com.pgk.delivery.Util.PassToken;
 import com.pgk.delivery.Model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;

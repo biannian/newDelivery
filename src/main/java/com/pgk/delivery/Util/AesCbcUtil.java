@@ -1,7 +1,7 @@
 package com.pgk.delivery.Util;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -16,7 +16,7 @@ import java.security.spec.InvalidParameterSpecException;
 public class AesCbcUtil {
     static {
         //BouncyCastle是一个开源的加解密解决方案，主页在http://www.bouncycastle.org/
-        Security.addProvider(new BouncyCastleProvider());
+//        Security.addProvider(new BouncyCastleProvider());
     }
 
     public static String decrypt(String data, String key, String iv, String encodingFormat) throws Exception {
