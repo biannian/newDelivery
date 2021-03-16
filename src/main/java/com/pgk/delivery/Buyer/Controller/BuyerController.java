@@ -17,6 +17,7 @@ public class BuyerController {
 
     @RequestMapping("/getBuyerAddress.do")
     public Result<?> getBuyerAddress(String accountName){
+
         Result<?> msg = service.getBuyerAddress(accountName);
         return msg;
     }

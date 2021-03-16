@@ -17,11 +17,13 @@ INSERT INTO `order` (
 	orderSellerTime,
 	orderRiderTime,
 	orderRiderTime1,
-	orderBuyerTime1
+	orderBuyerTime1,
+	orderTips,
+	tableware
 )
 VALUES
 	(#{shopId}, #{orderBuyerId}, #{orderRiderId},#{orderState},
-	#{orderBuyerTime},#{orderSellerTime},#{orderRiderTime},#{orderRiderTime1},#{orderBuyerTime1})
+	#{orderBuyerTime},#{orderSellerTime},#{orderRiderTime},#{orderRiderTime1},#{orderBuyerTime1},#{orderTips},#{tableware})
     </insert>
 	<insert id="addShopping" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
 		INSERT INTO shopping (

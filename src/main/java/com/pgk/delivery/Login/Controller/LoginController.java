@@ -10,6 +10,7 @@ import com.pgk.delivery.Model.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
@@ -56,7 +57,7 @@ public class LoginController {
         // 用户的唯一标识（openid）
         String openid = (String) json.get("openid");
 
-        Result<?> result = service.wxLogin(openid,wxCode.getWxName(),wxCode.getWxImage());
+        Result<?> result = service.wxLogin(openid, wxCode.getWxName(), wxCode.getWxImage());
         return result;
     }
 

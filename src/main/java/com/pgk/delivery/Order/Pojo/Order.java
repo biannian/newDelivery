@@ -55,4 +55,13 @@ public class Order {
      * 是否将订单状态码当作查询条件
      */
     private boolean stateOpen;
+
+    /**
+     * 订单备注
+     */
+    private String orderTips;
+    /**
+     * 餐具数量
+     */
+    private String tableware;
 }

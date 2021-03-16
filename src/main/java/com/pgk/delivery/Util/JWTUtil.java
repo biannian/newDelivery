@@ -16,7 +16,7 @@ import java.util.Date;
 public class JWTUtil {
     public static String createToken(String accountName, int accountLimit , int accountUserId) {
         Calendar nowTime = Calendar.getInstance();
-        nowTime.add(Calendar.MINUTE, 30);
+        nowTime.add(Calendar.MINUTE, 60);
         Date expiresDate = nowTime.getTime();
         return JWT.create().withAudience(accountName)
                 .withIssuedAt(new Date())
@@ -57,10 +57,10 @@ public class JWTUtil {
     public static boolean checkTokenDate(String token) {
         Date expiresDate = JWT.decode(token).getExpiresAt();
         Calendar nowDate = Calendar.getInstance();
-        nowDate.add(Calendar.MINUTE, 5);
+        nowDate.add(Calendar.MINUTE, 20);
         Date nowDate1 = nowDate.getTime();
         if (new Date().before(expiresDate) && nowDate1.after(expiresDate)) {
-            System.out.println("token还有不到5分钟过期");
+            System.out.println("token还有不到20分钟过期");
             return true;
         }
         return false;
