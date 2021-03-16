@@ -41,7 +41,7 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
             //A为订单中商品数量，commodityNumber为商品库存
             order.getShopping().get(i).setCommodityNumber(
                     order.getShopping().get(i).getCommodityNumber()
-                            - order.getShopping().get(i).getA());
+                            - order.getShopping().get(i).getShoppingNumber());
 
             mapper.deleteCommodityNumber(order.getShopping().get(i));
         }

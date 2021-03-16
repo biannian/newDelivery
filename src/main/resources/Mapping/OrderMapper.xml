@@ -32,7 +32,7 @@ VALUES
 	shoppingOrderId
 )
 VALUES
-	(#{commodityId},#{a},#{shoppingOrderId})
+	(#{commodityId},#{shoppingNumber},#{shoppingOrderId})
 	</insert>
 	<update id="deleteCommodityNumber" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
 	update commodity set commodityNumber=#{commodityNumber} where commodityId = #{commodityId}

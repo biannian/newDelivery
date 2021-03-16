@@ -11,7 +11,7 @@ public class Shopping {
     /**
      * 商品数量
      */
-    private int a;
+    private int shoppingNumber;
     /**
      * 订单编号
      */
