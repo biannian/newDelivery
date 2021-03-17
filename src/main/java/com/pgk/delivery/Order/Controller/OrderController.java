@@ -29,7 +29,6 @@ public class OrderController {
     @RequestMapping("/queryOrder.do")
     public Result<?> queryOrder(int orderId){
         Result<?> msg =service.queryOrder(orderId);
-
         return msg;
     }
     /**
