@@ -4,14 +4,41 @@
 
 	<resultMap id="shopping" type="com.pgk.delivery.Order.Pojo.Shopping">
 		<id column="shoppingOrderId" property="shoppingOrderId"></id>
-		<result column="shoppingNumber" property="commodityNumber"></result>
+		<result column="shoppingNumber" property="shoppingNumber"></result>
 		<result column="shoppingCommodityId" property="commodityId"></result>
+	</resultMap>
+	<resultMap id="order" type="com.pgk.delivery.Order.Pojo.Order">
+		<id column="orderId" property="orderId"></id>
+		<result column="orderBuyerAccount" property="orderBuyerAccount"></result>
+		<result column="orderRiderAccount" property="orderRiderAccount"></result>
+		<result column="orderState" property="orderState"></result>
+		<result column="orderBuyerTime" property="orderBuyerTime"></result>
+		<result column="orderSellerTime" property="orderSellerTime"></result>
+		<result column="orderRiderTime" property="orderRiderTime"></result>
+		<result column="orderRiderTime1" property="orderRiderTime1"></result>
+		<result column="orderBuyerTime1" property="orderBuyerTime1"></result>
+		<result column="orderTips" property="orderTips"></result>
+		<result column="tableware" property="tableware"></result>
+		<result column="shopName" property="shopName"></result>
+	 <collection property="buyerAddress" ofType="com.pgk.delivery.Order.Pojo.BuyerAddress">
+		 <id column="orderId" property="orderId"></id>
+		 <result column="buyerName" property="buyerName"></result>
+		 <result column="buyerTel" property="buyerTel"></result>
+		 <result column="buyerAddress" property="buyerAddress"></result>
+	 </collection>
+		<collection property="shopping" ofType="com.pgk.delivery.Order.Pojo.Shopping">
+			<id column="orderId" property="shoppingOrderId"></id>
+			<result column="shoppingNumber" property="commodityNumber"></result>
+			<result column="commodityName" property="commodityName"></result>
+			<result column="commodityImg" property="commodityImg"></result>
+			<result column="commodityPrice" property="commodityPrice"></result>
+		</collection>
 	</resultMap>
     <insert id="addOrder" useGeneratedKeys="true" keyProperty="orderId" keyColumn="orderId" parameterType="com.pgk.delivery.Order.Pojo.Order">
 INSERT INTO `order` (
 	shopId,
-	orderBuyerId,
-	orderRiderId,
+	orderBuyerAccount,
+	orderRiderAccount,
 	orderState,
 	orderBuyerTime,
 	orderSellerTime,
@@ -22,7 +49,7 @@ INSERT INTO `order` (
 	tableware
 )
 VALUES
-	(#{shopId}, #{orderBuyerId}, #{orderRiderId},#{orderState},
+	(#{shopId}, #{orderBuyerAccount}, #{orderRiderAccount},#{orderState},
 	#{orderBuyerTime},#{orderSellerTime},#{orderRiderTime},#{orderRiderTime1},#{orderBuyerTime1},#{orderTips},#{tableware})
     </insert>
 	<insert id="addShopping" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
@@ -33,6 +60,14 @@ VALUES
 )
 VALUES
 	(#{commodityId},#{shoppingNumber},#{shoppingOrderId})
+	</insert>
+	<insert id="addBuyerAddress">
+		insert into buyerAddress (buyerName,
+buyerAddress,
+buyerTel,
+orderId
+)
+values (#{buyerName},#{buyerAddress},#{buyerTel},#{orderId})
 	</insert>
 	<update id="deleteCommodityNumber" parameterType="com.pgk.delivery.Order.Pojo.Shopping">
 	update commodity set commodityNumber=#{commodityNumber} where commodityId = #{commodityId}
@@ -47,8 +82,8 @@ VALUES
 	SELECT
 	orderId,
 	shopId,
-	orderBuyerId,
-	orderRiderId,
+	orderBuyerAccount,
+	orderRiderAccount,
 	orderState,
     orderBuyerTime,
 	orderSellerTime,
@@ -57,8 +92,8 @@ VALUES
     orderBuyerTime1
 FROM
 	`order`
-<if test="orderBuyerId != null">
-	where orderBuyerId = #{orderBuyerId}
+<if test="orderBuyerAccount != null">
+	where orderBuyerAccount = #{orderBuyerAccount}
 </if>
 <if test="shopId != 0">
 	where shopId = #{shopId}
@@ -79,6 +114,36 @@ FROM
 	shopping JOIN commodity ON shopping.shoppingCommodityId = commodity.commodityId
 WHERE
 	shoppingOrderId = #{shoppingOrderId}
+	</select>
+	<select id="queryOrder" resultMap="order">
+SELECT
+	`order`.orderId,
+	`order`.orderBuyerAccount,
+	`order`.orderRiderAccount,
+	`order`.orderState,
+	`order`.orderBuyerTime,
+	`order`.orderSellerTime,
+	`order`.orderRiderTime,
+	`order`.orderRiderTime1,
+	`order`.orderBuyerTime1,
+	`order`.orderTips,
+	`order`.tableware,
+	shopping.shoppingNumber,
+	commodity.commodityName,
+	commodity.commodityImg,
+	commodity.commodityPrice,
+	buyeraddress.buyerName,
+	buyeraddress.buyerTel,
+	buyeraddress.buyerAddress,
+	shop.shopName
+FROM
+	`order`
+JOIN shopping ON `order`.orderId = shopping.shoppingOrderId
+JOIN commodity ON shopping.shoppingCommodityId = commodity.commodityId
+JOIN buyeraddress ON `order`.orderId = buyeraddress.orderId
+JOIN shop ON `order`.shopId = shop.shopId
+WHERE
+	`order`.orderId = #{orderId}
 	</select>
 	<update id="updateState" parameterType="com.pgk.delivery.Order.Pojo.Order">
 	update `order` set orderState=#{orderState},orderSellerTime=#{orderSellerTime} where orderId = #{orderId}

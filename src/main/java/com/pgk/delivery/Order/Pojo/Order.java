@@ -17,11 +17,11 @@ public class Order {
     /**
      * 买家用户名
      */
-    private String orderBuyerId;
+    private String orderBuyerAccount;
     /**
      * 骑手用户名
      */
-    private String orderRiderId;
+    private String orderRiderAccount;
     /**
      * 订单状态码
      */
@@ -64,4 +64,15 @@ public class Order {
      * 餐具数量
      */
     private String tableware;
+    /**
+     * 收货地址
+     */
+    private BuyerAddress buyerAddress;
+
+    /**
+     * 订单店铺名
+     */
+    private String shopName;
+
+
 }

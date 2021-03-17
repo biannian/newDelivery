@@ -20,15 +20,32 @@ public class OrderController {
         Result<?> msg = service.addOrder(order);
         return msg;
     }
+
+    /**
+     * 查看订单详情
+     * @param orderId//订单id
+     * @return
+     */
+    @RequestMapping("/queryOrder.do")
+    public Result<?> queryOrder(int orderId){
+        Result<?> msg =service.queryOrder(orderId);
+
+        return msg;
+    }
     /**
      *
-     * @param orderBuyerId
+     * @param orderBuyerAccount
      * @return
      */
     @RequestMapping("/selectOrder.do")
-    public Result<?> selectOrder(String orderBuyerId){
-        Result<?> msg = service.selectOrder(orderBuyerId);
-        return msg;
+    public Result<?> selectOrder(String orderBuyerAccount){
+        if( null == orderBuyerAccount){
+        return null;
+        }else {
+            Result<?> msg = service.selectOrder(orderBuyerAccount);
+            return msg;
+        }
+
     }
 
     @RequestMapping("/sellerSelectOrder.do")

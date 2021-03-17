@@ -1,6 +1,8 @@
 package com.pgk.delivery.Order.Mapper;
 
 
+import com.pgk.delivery.Model.Result;
+import com.pgk.delivery.Order.Pojo.BuyerAddress;
 import com.pgk.delivery.Order.Pojo.Order;
 import com.pgk.delivery.Order.Pojo.Shopping;
 import org.apache.ibatis.annotations.Mapper;
@@ -69,4 +71,12 @@ public interface OrderMapper {
      * @return
      */
     int delectShopping(int orderId);
+
+    /**
+     * 添加订单中的买家地址
+     * @return
+     */
+    int addBuyerAddress(BuyerAddress buyerAddress);
+
+    Order queryOrder(int orderId);
 }

@@ -1,11 +1,13 @@
-package com.pgk.delivery.Buyer.Pojo;
+package com.pgk.delivery.Order.Pojo;
+
 
 import lombok.Data;
 
 @Data
-public class Buyer {
-    private String buyerAccountName;
+public class BuyerAddress {
     private String buyerName;
     private String buyerAddress;
     private String buyerTel;
+    private int orderId;
+
 }

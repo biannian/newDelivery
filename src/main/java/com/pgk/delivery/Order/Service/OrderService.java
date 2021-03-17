@@ -7,7 +7,7 @@ public interface OrderService {
 
     Result<?> addOrder(Order order);
 
-    Result<?> selectOrder(String orderBuyerId);
+    Result<?> selectOrder(String orderBuyerAccount);
 
     Result<?> updateState(Order order);
 
@@ -16,4 +16,6 @@ public interface OrderService {
     Result<?> sellerSelectOrder(int accountUserId);
 
     Result<?> sellerSelectOrderById(int accountUserId);
+
+    Result<?> queryOrder( int orderId);
 }

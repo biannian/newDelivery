@@ -4,6 +4,7 @@ import com.pgk.delivery.Buyer.Mapper.BuyerMapper;
 import com.pgk.delivery.Buyer.Pojo.Buyer;
 import com.pgk.delivery.Model.Result;
 import com.pgk.delivery.Order.Mapper.OrderMapper;
+import com.pgk.delivery.Order.Pojo.BuyerAddress;
 import com.pgk.delivery.Order.Pojo.Order;
 import com.pgk.delivery.Order.Pojo.Shopping;
 import com.pgk.delivery.Shop.Mapper.ShopMapper;
@@ -33,6 +34,11 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
     @Override
     public Result<?> addOrder(Order order) {
         mapper.addOrder(order);
+        //添加买家订单中间表
+        BuyerAddress buyerAddress = new BuyerAddress();
+        buyerAddress = order.getBuyerAddress();
+        buyerAddress.setOrderId(order.getOrderId());
+        mapper.addBuyerAddress(buyerAddress);
         for (int i = 0; i < order.getShopping().size(); i++) {
             //根据i来循环order实体里的商品，
             order.getShopping().get(i).setShoppingOrderId(order.getOrderId());
@@ -49,9 +55,9 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
     }
 
     @Override
-    public Result<?> selectOrder(String orderBuyerId) {
+    public Result<?> selectOrder(String orderBuyerAccount) {
         Order order = new Order();
-        order.setOrderBuyerId(orderBuyerId);
+        order.setOrderBuyerAccount(orderBuyerAccount);
         List<Order> orders = mapper.selectOrder(order);
 
         List<List<Shopping>> shoppings = new ArrayList<>();
@@ -74,7 +80,7 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
         if (order.getShopping() == null) {
             int msg = mapper.updateState(order);
             return Result.success(msg);
-        } else {
+        } else { 
             int msg = 0;
             mapper.updateState(order);
             //根据订单中的商品数量进行循环，先去数据库中查询出商品库存，然后将前端传来的数量加上库存存入数据库中
@@ -123,12 +129,18 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
         List<Buyer> buyers = new ArrayList<>();
         for (int i = 0; i <Orders.size() ; i++) {
             shoppings.add( mapper.selectShopping(Orders.get(i).getOrderId()));
-            buyers.add(buyerMapper.getBuyerAddress(Orders.get(i).getOrderBuyerId()));
+            buyers.add(buyerMapper.getBuyerAddress(Orders.get(i).getOrderBuyerAccount()));
         }
         HashMap<String, Object> orderMap = new HashMap<>();
         orderMap.put("buyers",buyers);
         orderMap.put("shoppings",shoppings);
         orderMap.put("Orders",Orders);
         return Result.success(orderMap);
+    }
+
+    @Override
+    public Result<?> queryOrder( int orderId) {
+        Order order = mapper.queryOrder(orderId);
+        return Result.success(order);
     }
 }

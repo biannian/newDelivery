@@ -4,19 +4,17 @@
 	<insert id="addAddress">
 	INSERT INTO buyer (
 	buyerName,
-	buyerSex,
 	buyerAddress,
 	buyerTel
 )
 VALUES
-	(#{buyerName},#{buyerSex},#{buyerAddress},#{buyerTel})
+	(#{buyerName},#{buyerAddress},#{buyerTel})
 	</insert>
 	<update id="updateAddress">
 UPDATE
     buyer
 SET
     buyerName = #{buyerName},
-    buyerSex = #{buyerSex},
     buyerAddress = #{buyerAddress},
     buyerTel = #{buyerTel}
 WHERE
@@ -26,7 +24,6 @@ WHERE
  SELECT
 	buyerAccountName,
 	buyerName,
-	buyerSex,
 	buyerAddress,
 	buyerTel
 FROM
