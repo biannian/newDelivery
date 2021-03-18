@@ -53,6 +53,7 @@ public class ShopController {
             return shop;
     }
 
+
     @RequestMapping("/queryAllCommodity.do")
     public Result<?> queryAllCommodity(HttpServletRequest request, HttpServletResponse response, Integer accountUserId) {
         int accountLimit = (int) request.getAttribute("accountLimit");

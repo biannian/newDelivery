@@ -23,6 +23,10 @@ public class Order {
      */
     private String orderRiderAccount;
     /**
+     * 骑手姓名
+     */
+    private String riderName;
+    /**
      * 订单状态码
      */
     private int orderState;
@@ -73,6 +77,8 @@ public class Order {
      * 订单店铺名
      */
     private String shopName;
-
-
+    /**
+     * 订单店铺地址
+     */
+    private String shopAddress;
 }

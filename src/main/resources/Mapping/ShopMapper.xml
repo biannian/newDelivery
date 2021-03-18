@@ -210,6 +210,6 @@ WHERE
         FROM
         shop
         WHERE
-        shopTypeId = #{shopType}
+        shopTypeId = #{shopTypeId}
     </select>
 </mapper>

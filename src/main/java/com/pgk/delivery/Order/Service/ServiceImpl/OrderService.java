@@ -51,7 +51,7 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
 
             mapper.deleteCommodityNumber(order.getShopping().get(i));
         }
-        return Result.success();
+        return Result.success(order.getOrderId());
     }
 
     @Override

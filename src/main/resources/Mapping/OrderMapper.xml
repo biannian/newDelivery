@@ -20,6 +20,7 @@
 		<result column="orderTips" property="orderTips"></result>
 		<result column="tableware" property="tableware"></result>
 		<result column="shopName" property="shopName"></result>
+		<result column="shopAddress" property="shopAddress"></result>
 	 <collection property="buyerAddress" ofType="com.pgk.delivery.Order.Pojo.BuyerAddress">
 		 <id column="orderId" property="orderId"></id>
 		 <result column="buyerName" property="buyerName"></result>
@@ -27,9 +28,8 @@
 		 <result column="buyerAddress" property="buyerAddress"></result>
 	 </collection>
 		<collection property="shopping" ofType="com.pgk.delivery.Order.Pojo.Shopping">
-			<id column="orderId" property="shoppingOrderId"></id>
+			<id column="commodityName" property="commodityName"></id>
 			<result column="shoppingNumber" property="commodityNumber"></result>
-			<result column="commodityName" property="commodityName"></result>
 			<result column="commodityImg" property="commodityImg"></result>
 			<result column="commodityPrice" property="commodityPrice"></result>
 		</collection>
@@ -135,7 +135,8 @@ SELECT
 	buyeraddress.buyerName,
 	buyeraddress.buyerTel,
 	buyeraddress.buyerAddress,
-	shop.shopName
+	shop.shopName,
+	shop.shopAddress
 FROM
 	`order`
 JOIN shopping ON `order`.orderId = shopping.shoppingOrderId
@@ -146,6 +147,6 @@ WHERE
 	`order`.orderId = #{orderId}
 	</select>
 	<update id="updateState" parameterType="com.pgk.delivery.Order.Pojo.Order">
-	update `order` set orderState=#{orderState},orderSellerTime=#{orderSellerTime} where orderId = #{orderId}
+	update `order` set orderState=#{orderState},orderBuyerTime1=#{orderBuyerTime1} where orderId = #{orderId}
 	</update>
 </mapper>
