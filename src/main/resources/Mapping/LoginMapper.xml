@@ -22,7 +22,9 @@ WHERE
         accountPassword,
         accountLimit,
         accountBan,
-        accountUserId
+        accountUserId,
+        wxName,
+        wxImage
         FROM
         account
         WHERE

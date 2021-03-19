@@ -52,7 +52,11 @@ public class LoginService {
         } else {
             if (!account.isAccountBan()) {
                 String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(), account.getAccountUserId());
-                return Result.success(jwtToken);
+                HashMap<String,String> map = new HashMap();
+                map.put("token",jwtToken);
+                map.put("wxName",account.getWxName());
+                map.put("wxImage",account.getWxImage());
+                return Result.success(map);
             } else {
                 return Result.fail(ErrorCode.ACCOUNT_BAN);
             }

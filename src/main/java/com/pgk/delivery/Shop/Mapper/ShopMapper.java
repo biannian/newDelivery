@@ -39,4 +39,10 @@ public interface ShopMapper {
     int addShop(Shop shop);
 
     List<Shop> queryByType(int shopTypeId);
+
+    List<Integer> queryBuyerLikeShop(String buyerAccount);
+
+    int addBuyerLikeShop(String buyerAccount, int shopId);
+
+    int deleteBuyerLikeShop(String buyerAccount, int shopId);
 }

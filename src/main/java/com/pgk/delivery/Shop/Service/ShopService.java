@@ -30,4 +30,10 @@ public interface ShopService {
     Result<?> updateShopInformation(Shop shop);
 
     Result<?> queryByType(int shopTypeId);
+
+    Result<?> queryBuyerLikeShop(String buyerAccount);
+
+    Result<?> addBuyerLikeShop(String buyerAccount, int shopId);
+
+    Result<?> deleteBuyerLikeShop(String buyerAccount, int shopId);
 }

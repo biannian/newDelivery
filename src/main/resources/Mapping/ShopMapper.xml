@@ -56,6 +56,9 @@ VALUES(
 	#{shopSendPrice}
 )
     </insert>
+    <insert id="addBuyerLikeShop">
+        insert into buyerLikeShop (buyerAccount,shopId) VALUES (#{buyerAccount},#{shopId})
+    </insert>
     <update id="commodityEdit" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
   update commodity set
 commodityName = #{commodityName},
@@ -79,6 +82,9 @@ WHERE
     </update>
     <delete id="delectCommodity">
         delete from commodity where commodityId = #{commodityId}
+    </delete>
+    <delete id="deleteBuyerLikeShop">
+        delete from buyerLikeShop where buyerAccount = #{buyerAccount} and shopId = #{shopId}
     </delete>
 
     <select id="queryAll" resultType="com.pgk.delivery.Shop.Pojo.Shop">
@@ -211,5 +217,8 @@ WHERE
         shop
         WHERE
         shopTypeId = #{shopTypeId}
+    </select>
+    <select id="queryBuyerLikeShop" resultType="java.lang.Integer" >
+        select shopId from buyerLikeShop where buyerAccount = #{buyerAccount}
     </select>
 </mapper>

@@ -33,6 +33,25 @@ public class ShopController {
         Result<?> shops = service.queryAll();
         return shops;
     }
+
+    @PassToken
+    @RequestMapping("/queryBuyerLikeShop.do")
+    public Result<?> queryBuyerLikeShop(String buyerAccount) {
+        Result<?> msg = service.queryBuyerLikeShop(buyerAccount);
+        return msg;
+    }
+
+    @RequestMapping("/addBuyerLikeShop.do")
+    public Result<?> addBuyerLikeShop(String buyerAccount,int shopId) {
+        Result<?> msg = service.addBuyerLikeShop(buyerAccount,shopId);
+        return msg;
+    }
+    @RequestMapping("/deleteBuyerLikeShop.do")
+    public Result<?> deleteBuyerLikeShop(String buyerAccount,int shopId) {
+        Result<?> msg = service.deleteBuyerLikeShop(buyerAccount,shopId);
+        return msg;
+    }
+
     @PassToken
     @RequestMapping("/queryByName.do")
     public Result<?> queryByName(String shopName) {

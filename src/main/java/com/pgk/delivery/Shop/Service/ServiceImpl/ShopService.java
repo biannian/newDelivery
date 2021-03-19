@@ -1,9 +1,6 @@
 package com.pgk.delivery.Shop.Service.ServiceImpl;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.pgk.delivery.Model.Result;
-import com.pgk.delivery.Seller.Pojo.Seller;
 import com.pgk.delivery.Shop.Mapper.ShopMapper;
 import com.pgk.delivery.Shop.Pojo.Commodity;
 import com.pgk.delivery.Shop.Pojo.Shop;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 @Service
@@ -157,5 +153,23 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
     public Result<?> queryByType(int shopTypeId) {
         List<Shop> shop = mapper.queryByType(shopTypeId);
         return Result.success(shop);
+    }
+
+    @Override
+    public Result<?> queryBuyerLikeShop(String buyerAccount) {
+        List<Integer> msg = mapper.queryBuyerLikeShop(buyerAccount);
+        return Result.success(msg);
+    }
+
+    @Override
+    public Result<?> addBuyerLikeShop(String buyerAccount, int shopId) {
+        int msg = mapper.addBuyerLikeShop(buyerAccount,shopId);
+        return Result.success(msg);
+    }
+
+    @Override
+    public Result<?> deleteBuyerLikeShop(String buyerAccount, int shopId) {
+        int msg = mapper.deleteBuyerLikeShop(buyerAccount,shopId);
+        return Result.success(msg);
     }
 }
