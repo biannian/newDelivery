@@ -36,4 +36,8 @@ public interface ShopService {
     Result<?> addBuyerLikeShop(String buyerAccount, int shopId);
 
     Result<?> deleteBuyerLikeShop(String buyerAccount, int shopId);
+
+    Result<?> queryBuyerLikeShopInfo(String buyerAccount);
+
+    Result<?> queryShopInfo(int shopId);
 }

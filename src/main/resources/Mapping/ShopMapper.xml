@@ -221,4 +221,33 @@ WHERE
     <select id="queryBuyerLikeShop" resultType="java.lang.Integer" >
         select shopId from buyerLikeShop where buyerAccount = #{buyerAccount}
     </select>
+    <select id="queryBuyerLikeShopInfo" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+        SELECT
+	shop.shopName,
+	shop.shopId,
+	shop.shopImg,
+	shop.shopScore,
+	shop.shopSendPrice,
+	shop.shopStartPrice,
+	shop.shopSalesVolume
+FROM
+	shop
+JOIN buyerlikeshop ON shop.shopId = buyerlikeshop.shopId
+WHERE
+	buyerlikeshop.buyerAccount = #{buyerAccount}
+    </select>
+    <select id="queryShopInfo" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+SELECT
+	shop.shopName,
+	shop.shopOpenTime,
+	shoptype.shopType,
+	shop.shopAddress,
+	seller.sellerTel
+FROM
+	shop
+JOIN seller ON shop.shopSellerId = seller.sellerId
+JOIN shoptype ON shoptype.shopTypeId = shop.shopTypeId
+WHERE
+	shop.shopId = #{shopId}
+    </select>
 </mapper>

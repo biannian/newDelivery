@@ -45,4 +45,8 @@ public interface ShopMapper {
     int addBuyerLikeShop(String buyerAccount, int shopId);
 
     int deleteBuyerLikeShop(String buyerAccount, int shopId);
+
+    List<Shop> queryBuyerLikeShopInfo(String buyerAccount);
+
+    Shop queryShopInfo(int shopId);
 }

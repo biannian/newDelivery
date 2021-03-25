@@ -172,4 +172,16 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
         int msg = mapper.deleteBuyerLikeShop(buyerAccount,shopId);
         return Result.success(msg);
     }
+
+    @Override
+    public Result<?> queryBuyerLikeShopInfo(String buyerAccount) {
+        List<Shop> msg = mapper.queryBuyerLikeShopInfo(buyerAccount);
+        return Result.success(msg);
+    }
+
+    @Override
+    public Result<?> queryShopInfo(int shopId) {
+        Shop shop = mapper.queryShopInfo(shopId);
+        return Result.success(shop);
+    }
 }

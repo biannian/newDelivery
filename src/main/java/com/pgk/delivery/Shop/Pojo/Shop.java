@@ -19,6 +19,10 @@ public class Shop {
     private int shopTypeId;//店铺种类id
     private String shopInfo;//店铺介绍
 
+    private String shopOpenTime;//营业时间
+    private String shopType;//店铺种类名
+    private String sellerTel;//卖家电话
+
     private List<Commodity> commodity;
 
 

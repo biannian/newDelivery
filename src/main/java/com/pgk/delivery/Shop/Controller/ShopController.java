@@ -41,6 +41,12 @@ public class ShopController {
         return msg;
     }
 
+    @RequestMapping("/queryBuyerLikeShopInfo.do")
+    public Result<?> queryBuyerLikeShopInfo(String buyerAccount) {
+        Result<?> msg = service.queryBuyerLikeShopInfo(buyerAccount);
+        return msg;
+    }
+
     @RequestMapping("/addBuyerLikeShop.do")
     public Result<?> addBuyerLikeShop(String buyerAccount,int shopId) {
         Result<?> msg = service.addBuyerLikeShop(buyerAccount,shopId);
@@ -50,6 +56,13 @@ public class ShopController {
     public Result<?> deleteBuyerLikeShop(String buyerAccount,int shopId) {
         Result<?> msg = service.deleteBuyerLikeShop(buyerAccount,shopId);
         return msg;
+    }
+
+    @PassToken
+    @RequestMapping("/queryShopInfo.do")
+    public Result<?> queryShopInfo(int shopId) {
+        Result<?> shop = service.queryShopInfo(shopId);
+        return shop;
     }
 
     @PassToken
