@@ -40,14 +40,14 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
             // 执行认证
             if (token == null) {
                 //登录失效了，没有taken了
-                System.out.println("登录失效，重新登录");
+                System.out.println("没有token");
                 response.setStatus(ErrorCode.AUTH_ERROR.getValue());
                 return false;
             }
             String accountName = JWTUtil.getAudience(token);
             Account account = loginService.queryByName(accountName);
             if (account == null) {
-                System.out.println("没有此用户");
+                System.out.println("token中没有此用户");
                 response.setStatus(ErrorCode.AUTH_ERROR.getValue());
                 return false;
             }
