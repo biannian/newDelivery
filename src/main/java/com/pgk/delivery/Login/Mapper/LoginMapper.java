@@ -31,7 +31,7 @@ public interface LoginMapper {
 
     Account selectAddress(Account account);
 
-    Account wxLogin(String openId );
+    List<Account> wxLogin(String openId ,int limit);
 
-    int addAccount(String openId,String wxName,String wxImage );
+    int addAccount(String openId,String wxName,String wxImage,int limit);
 }

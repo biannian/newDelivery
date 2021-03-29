@@ -57,7 +57,7 @@ public class LoginController {
         // 用户的唯一标识（openid）
         String openid = (String) json.get("openid");
 
-        Result<?> result = service.wxLogin(openid, wxCode.getWxName(), wxCode.getWxImage());
+        Result<?> result = service.wxLogin(openid, wxCode.getWxName(), wxCode.getWxImage() , wxCode.getLimit());
         return result;
     }
 

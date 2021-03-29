@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class WxCode {
+    private int limit;//账户权限
     private String code;
     private String encryptedData;
     private String iv;

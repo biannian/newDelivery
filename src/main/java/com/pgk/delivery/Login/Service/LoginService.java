@@ -52,10 +52,10 @@ public class LoginService {
         } else {
             if (!account.isAccountBan()) {
                 String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(), account.getAccountUserId());
-                HashMap<String,String> map = new HashMap();
-                map.put("token",jwtToken);
-                map.put("wxName",account.getWxName());
-                map.put("wxImage",account.getWxImage());
+                HashMap<String, String> map = new HashMap();
+                map.put("token", jwtToken);
+                map.put("wxName", account.getWxName());
+                map.put("wxImage", account.getWxImage());
                 return Result.success(map);
             } else {
                 return Result.fail(ErrorCode.ACCOUNT_BAN);
@@ -92,6 +92,7 @@ public class LoginService {
             account.setAccountUserId(userId);
 
             int msg = mapper.register(account);
+
             if (msg == 1) {
                 String jwtToken = JWTUtil.createToken(account.getAccountName(), account.getAccountLimit(), account.getAccountUserId());
                 return Result.success(jwtToken);
@@ -128,23 +129,27 @@ public class LoginService {
 
     public boolean selectAddress(Account account) {
         Account msg = mapper.selectAddress(account);
-        if (msg == null) {
-            return false;
-        } else {
-            return true;
-        }
+        return msg != null;
     }
-    public Result<?> wxLogin(String openId,String wxName,String wxImage) {
-        Account msg = mapper.wxLogin(openId);
-        HashMap map = new HashMap();
 
-        if (msg== null){
-            mapper.addAccount(openId,wxName,wxImage);
-           map.put("openId",openId);
-           map.put("token","");
-        }else {
-            String jwtToken = JWTUtil.createToken(msg.getAccountName(), msg.getAccountLimit(), msg.getAccountUserId());
-            map.put("token",jwtToken);
+    public Result<?> wxLogin(String openId, String wxName, String wxImage, int limit) {
+        List<Account> account = mapper.wxLogin(openId,limit);
+        HashMap<String, String> map = new HashMap<>();
+
+        if (account.size() == 0) {
+            mapper.addAccount(openId, wxName, wxImage,limit);
+            map.put("openId", openId);
+            map.put("token", "");
+        } else {
+            for (Account newAccount : account) {
+                if (newAccount.getAccountLimit() == limit) {
+                    String jwtToken = JWTUtil.createToken(newAccount.getAccountName(), newAccount.getAccountLimit(), newAccount.getAccountUserId());
+                    map.put("token", jwtToken);
+                }
+            }
+            if (map.get("token") == null){
+                map.put("token","");
+            }
         }
         return Result.success(map);
     }
