@@ -127,9 +127,9 @@ public class LoginService {
         return msg;
     }
 
-    public boolean selectAddress(Account account) {
-        Account msg = mapper.selectAddress(account);
-        return msg != null;
+    public Result<?> queryRiderInfo(String riderAccount) {
+        Account msg = mapper.queryRiderInfo(riderAccount);
+        return Result.success(msg);
     }
 
     public Result<?> wxLogin(String openId, String wxName, String wxImage, int limit) {
@@ -152,5 +152,10 @@ public class LoginService {
             }
         }
         return Result.success(map);
+    }
+
+    public Result<?> updateRiderInfo(Account account) {
+        int msg = mapper.updateRiderInfo(account);
+        return Result.success(msg);
     }
 }

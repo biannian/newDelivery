@@ -139,15 +139,21 @@ public class LoginController {
     }
 
     /**
-     * 查看是否存到收货地址
+     * 查询骑手个人信息
      *
-     * @param account
+     * @param riderAccount
      * @return
      */
-    @RequestMapping(value = "/selectAddress.do")
-    public Result<?> selectAddress(Account account) {
-        boolean msg = service.selectAddress(account);
-
-        return Result.success(msg);
+    @RequestMapping(value = "/queryRiderInfo.do")
+    public Result<?> queryRiderInfo(String riderAccount) {
+        Result<?> msg = service.queryRiderInfo(riderAccount);
+        return msg;
     }
+
+    @RequestMapping(value = "/updateRiderInfo.do")
+    public Result<?> updateRiderInfo(Account account) {
+        Result<?> msg = service.updateRiderInfo(account);
+        return msg;
+    }
+
 }

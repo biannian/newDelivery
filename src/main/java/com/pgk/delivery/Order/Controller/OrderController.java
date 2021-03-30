@@ -23,12 +23,12 @@ public class OrderController {
 
     /**
      * 查看订单详情
-     * @param orderId//订单id
+     * @param order//订单id
      * @return
      */
     @RequestMapping("/queryOrder.do")
-    public Result<?> queryOrder(int orderId){
-        Result<?> msg =service.queryOrder(orderId);
+    public Result<?> queryOrder(Order order){
+        Result<?> msg =service.queryOrder(order);
         return msg;
     }
     /**

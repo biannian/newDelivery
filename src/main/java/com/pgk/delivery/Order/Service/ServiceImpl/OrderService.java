@@ -9,7 +9,8 @@ import com.pgk.delivery.Order.Pojo.Order;
 import com.pgk.delivery.Order.Pojo.Shopping;
 import com.pgk.delivery.Shop.Mapper.ShopMapper;
 import com.pgk.delivery.Shop.Pojo.Commodity;
-import com.pgk.delivery.Shop.Pojo.Shop; 
+import com.pgk.delivery.Shop.Pojo.Shop;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -139,8 +140,14 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
     }
 
     @Override
-    public Result<?> queryOrder( int orderId) {
-        Order order = mapper.queryOrder(orderId);
-        return Result.success(order);
+    public Result<?> queryOrder( Order order) {
+        if (order.getOrderId() != 0 ){
+            List<Order> result = mapper.queryOrder(order);
+            return Result.success(result.get(0));
+        }else{
+            List<Order> result = mapper.queryOrder(order);
+            return Result.success(result);
+        }
+
     }
 }

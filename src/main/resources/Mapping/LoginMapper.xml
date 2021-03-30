@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.pgk.delivery.Login.Mapper.LoginMapper">
+    <resultMap id="rider" type="com.pgk.delivery.Login.Pojo.Account">
+        <result column="riderName" property="name"/>
+        <result column="riderSex" property="sex"/>
+        <result column="riderAddress" property="address"/>
+        <result column="riderAge" property="age"/>
+        <result column="riderTel" property="tel"/>
+    </resultMap>
+
     <update id="banAccount" parameterType="com.pgk.delivery.Login.Pojo.Account">
         UPDATE account
         SET accountBan = #{accountBan}
@@ -52,6 +60,12 @@ accountBan=#{accountBan}
 WHERE
 	openId =#{openId} and accountLimit=#{accountLimit}
     </update>
+    <update id="updateRiderInfo">
+         update rider set
+         riderName=#{name},riderAddress=#{address},riderAge=#{age},
+         riderSex=#{sex},riderTel=#{tel}
+         where  riderAccountName=#{accountName}
+    </update>
     <insert id="addInformation" parameterType="com.pgk.delivery.Login.Pojo.Account">
 
         <if test="1 == accountLimit">
@@ -70,8 +84,8 @@ WHERE
     <select id="selectUserId" parameterType="com.pgk.delivery.Login.Pojo.Account"  resultType="java.lang.Integer">
         select ${tableId} from ${table} where ${tableAccountName} = #{accountName}
     </select>
-    <select id="selectAddress" resultType="com.pgk.delivery.Login.Pojo.Account" parameterType="java.lang.Integer">
-        select buyerName from buyer where buyerId = #{accountUserId}
+    <select id="queryRiderInfo" resultMap="rider" >
+        select riderName,riderAddress,riderAge,riderSex,riderTel from rider where riderAccountName = #{riderAccount}
     </select>
     <select id="wxLogin" resultType="com.pgk.delivery.Login.Pojo.Account">
          SELECT

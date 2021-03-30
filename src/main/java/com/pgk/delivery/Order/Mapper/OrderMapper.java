@@ -78,5 +78,5 @@ public interface OrderMapper {
      */
     int addBuyerAddress(BuyerAddress buyerAddress);
 
-    Order queryOrder(int orderId);
+    List<Order> queryOrder(Order order);
 }

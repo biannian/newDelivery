@@ -29,9 +29,11 @@ public interface LoginMapper {
 
     int updatePassword(Account account);
 
-    Account selectAddress(Account account);
+    Account queryRiderInfo(String riderAccount);
 
     List<Account> wxLogin(String openId ,int limit);
 
     int addAccount(String openId,String wxName,String wxImage,int limit);
+
+    int updateRiderInfo(Account account);
 }

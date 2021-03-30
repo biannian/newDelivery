@@ -17,5 +17,5 @@ public interface OrderService {
 
     Result<?> sellerSelectOrderById(int accountUserId);
 
-    Result<?> queryOrder( int orderId);
+    Result<?> queryOrder( Order order);
 }

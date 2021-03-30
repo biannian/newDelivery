@@ -143,8 +143,15 @@ JOIN shopping ON `order`.orderId = shopping.shoppingOrderId
 JOIN commodity ON shopping.shoppingCommodityId = commodity.commodityId
 JOIN buyeraddress ON `order`.orderId = buyeraddress.orderId
 JOIN shop ON `order`.shopId = shop.shopId
-WHERE
-	`order`.orderId = #{orderId}
+ <if test="orderId != 0 ">
+	 WHERE
+	 `order`.orderId = #{orderId}
+ </if>
+<if test=" null != orderRiderAccount ">
+	WHERE
+	`order`.orderState = '0'
+</if>
+
 	</select>
 	<update id="updateState" parameterType="com.pgk.delivery.Order.Pojo.Order">
 	update `order` set orderState=#{orderState},orderBuyerTime1=#{orderBuyerTime1} where orderId = #{orderId}
