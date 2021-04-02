@@ -20,7 +20,7 @@ import java.util.List;
 
 
 @Service
-public class   OrderService implements com.pgk.delivery.Order.Service.OrderService {
+public class OrderService implements com.pgk.delivery.Order.Service.OrderService {
 
     @Autowired
     private OrderMapper mapper;
@@ -76,12 +76,13 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
         orderMap.put("shops", shops);
         return Result.success(orderMap);
     }
+
     @Override
     public Result<?> updateState(Order order) {
         if (order.getShopping() == null) {
             int msg = mapper.updateState(order);
             return Result.success(msg);
-        } else { 
+        } else {
             int msg = 0;
             mapper.updateState(order);
             //根据订单中的商品数量进行循环，先去数据库中查询出商品库存，然后将前端传来的数量加上库存存入数据库中
@@ -98,9 +99,9 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
     public Result<?> deleteOrder(int orderId) {
         int orderMsg = mapper.deleteOrder(orderId);
         int shoppingMsg = mapper.delectShopping(orderId);
-        if (orderMsg == 1){
+        if (orderMsg == 1) {
             return Result.success(shoppingMsg);
-        }else {
+        } else {
             return Result.fail(500);
         }
 
@@ -128,26 +129,36 @@ public class   OrderService implements com.pgk.delivery.Order.Service.OrderServi
         List<List<Shopping>> shoppings = new ArrayList<>();
         //实例一个存放用户地址的集合
         List<Buyer> buyers = new ArrayList<>();
-        for (int i = 0; i <Orders.size() ; i++) {
-            shoppings.add( mapper.selectShopping(Orders.get(i).getOrderId()));
+        for (int i = 0; i < Orders.size(); i++) {
+            shoppings.add(mapper.selectShopping(Orders.get(i).getOrderId()));
             buyers.add(buyerMapper.getBuyerAddress(Orders.get(i).getOrderBuyerAccount()));
         }
         HashMap<String, Object> orderMap = new HashMap<>();
-        orderMap.put("buyers",buyers);
-        orderMap.put("shoppings",shoppings);
-        orderMap.put("Orders",Orders);
+        orderMap.put("buyers", buyers);
+        orderMap.put("shoppings", shoppings);
+        orderMap.put("Orders", Orders);
         return Result.success(orderMap);
     }
 
     @Override
-    public Result<?> queryOrder( Order order) {
-        if (order.getOrderId() != 0 ){
+    public Result<?> queryOrder(Order order) {
+        if (order.getOrderId() != 0) {
             List<Order> result = mapper.queryOrder(order);
             return Result.success(result.get(0));
-        }else{
+        } else {
             List<Order> result = mapper.queryOrder(order);
             return Result.success(result);
         }
 
+    }
+
+    @Override
+    public Result<?> riderUpdateState(Order order) {
+        int a = mapper.updateState(order);
+        int b = mapper.addOrderRiderAccount(order);
+        if (a == 1 && b == 1){
+            return Result.success();
+        }
+     return Result.fail(-1,"接单错误请联系管理员");
     }
 }

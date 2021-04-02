@@ -81,4 +81,13 @@ public class Order {
      * 订单店铺地址
      */
     private String shopAddress;
+    /**
+     * 运费
+     */
+    private double shopSendPrice;
+    /**
+     * 骑手手机号
+     */
+    private String riderTel;
+
 }

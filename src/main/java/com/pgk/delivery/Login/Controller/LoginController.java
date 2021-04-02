@@ -107,6 +107,7 @@ public class LoginController {
 
     @RequestMapping(value = "/banAccount.do")
     public Result<?> banAccount(HttpServletRequest req, Account account, HttpServletResponse response) {
+        System.out.println("123");
         int accountLimit = (int) req.getAttribute("accountLimit");
         if (accountLimit == 4) {
             Result<?> result = service.banAccount(account);

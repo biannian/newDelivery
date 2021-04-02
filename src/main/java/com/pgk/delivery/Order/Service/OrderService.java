@@ -18,4 +18,6 @@ public interface OrderService {
     Result<?> sellerSelectOrderById(int accountUserId);
 
     Result<?> queryOrder( Order order);
+
+    Result<?> riderUpdateState(Order order);
 }

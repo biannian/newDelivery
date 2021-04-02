@@ -47,12 +47,14 @@ public class LoginService {
     public Result<?> login(String accountName, String accountPassword) {
 
         Account account = mapper.login(accountName, Md5.EncoderByMd5(accountPassword));
+
         if (account == null) {
             return Result.fail(ErrorCode.USERNAME_OR_PASSWORD_ERROR);
         } else {
             if (!account.isAccountBan()) {
                 String jwtToken = JWTUtil.createToken(accountName, account.getAccountLimit(), account.getAccountUserId());
                 HashMap<String, String> map = new HashMap();
+                map.put("limit",String.valueOf(account.getAccountLimit()));
                 map.put("token", jwtToken);
                 map.put("wxName", account.getWxName());
                 map.put("wxImage", account.getWxImage());
@@ -145,6 +147,7 @@ public class LoginService {
                 if (newAccount.getAccountLimit() == limit) {
                     String jwtToken = JWTUtil.createToken(newAccount.getAccountName(), newAccount.getAccountLimit(), newAccount.getAccountUserId());
                     map.put("token", jwtToken);
+                    map.put("limit",String.valueOf(newAccount.getAccountLimit()));
                 }
             }
             if (map.get("token") == null){

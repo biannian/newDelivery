@@ -65,6 +65,14 @@ public class OrderController {
         Result<?> msg = service.updateState(order);
         return msg;
     }
+
+    @RequestMapping("/riderUpdateState.do")
+    public Result<?> riderUpdateState(@RequestBody Order order){
+        Result<?> msg = service.riderUpdateState(order);
+        return msg;
+    }
+
+
     @RequestMapping("/deleteOrder.do")
     public Result<?> deleteOrder(int orderId){
         Result<?> msg = service.deleteOrder(orderId);

@@ -64,7 +64,7 @@ public class CustomWebSocket {
     @OnClose
     public void onClose() {
         //从set中删除
-
+        System.out.println(userName);
         webSocketMap.remove(userName);
         userNames.remove(userName);
         System.out.println("有连接关闭。当前在线人数为：" + userNames.size());
