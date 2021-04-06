@@ -40,4 +40,6 @@ public interface ShopService {
     Result<?> queryBuyerLikeShopInfo(String buyerAccount);
 
     Result<?> queryShopInfo(int shopId);
+
+    Result<?> selectShopType();
 }

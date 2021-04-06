@@ -184,4 +184,10 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
         Shop shop = mapper.queryShopInfo(shopId);
         return Result.success(shop);
     }
+
+    @Override
+    public Result<?> selectShopType() {
+        List<Shop> ShopType = mapper.selectShopType();
+        return Result.success(ShopType);
+    }
 }

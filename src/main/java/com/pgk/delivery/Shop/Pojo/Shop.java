@@ -20,6 +20,7 @@ public class Shop {
     private String shopInfo;//店铺介绍
 
     private String shopOpenTime;//营业时间
+    private String shopCloseTime;//关店时间
     private String shopType;//店铺种类名
     private String sellerTel;//卖家电话
 

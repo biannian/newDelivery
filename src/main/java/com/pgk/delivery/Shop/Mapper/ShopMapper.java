@@ -49,4 +49,6 @@ public interface ShopMapper {
     List<Shop> queryBuyerLikeShopInfo(String buyerAccount);
 
     Shop queryShopInfo(int shopId);
+
+    List<Shop> selectShopType();
 }

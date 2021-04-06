@@ -76,7 +76,11 @@ update shop set
 	shopSellerId = #{shopSellerId},
 	shopAddress = #{shopAddress},
 	shopStartPrice = #{shopStartPrice},
-	shopSendPrice =#{shopSendPrice}
+	shopSendPrice =#{shopSendPrice},
+	shopOpenTime =#{shopOpenTime},
+	shopCloseTime = #{shopCloseTime},
+	shopTypeId = #{shopTypeId},
+	shopInfo = #{shopInfo}
 WHERE
     shopSellerId = #{shopSellerId}
     </update>
@@ -196,7 +200,11 @@ SELECT
 	shopSellerId,
 	shopAddress,
 	shopStartPrice,
-	shopSendPrice
+	shopSendPrice,
+	shopTypeId,
+	shopInfo,
+	shopOpenTime,
+	shopCloseTime
 FROM
 	shop
 WHERE
@@ -242,6 +250,7 @@ SELECT
 	shop.shopOpenTime,
 	shoptype.shopType,
 	shop.shopAddress,
+	shop.shopCloseTime,
 	seller.sellerTel
 FROM
 	shop
@@ -249,5 +258,8 @@ JOIN seller ON shop.shopSellerId = seller.sellerId
 JOIN shoptype ON shoptype.shopTypeId = shop.shopTypeId
 WHERE
 	shop.shopId = #{shopId}
+    </select>
+    <select id="selectShopType" resultType="com.pgk.delivery.Shop.Pojo.Shop">
+        select shopTypeId,shopType from shoptype
     </select>
 </mapper>

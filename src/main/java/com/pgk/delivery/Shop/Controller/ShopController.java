@@ -108,6 +108,16 @@ public class ShopController {
         return menu;
     }
 
+    /**
+     * 查询店铺种类
+     * @return
+     */
+    @RequestMapping("/selectShopType.do")
+    public Result<?> selectShopType() {
+        Result<?> menu = service.selectShopType();
+        return menu;
+    }
+
     @RequestMapping("/addMenu.do")
     public Result<?> addMenu(String shopMenuName) {
         Result<?> menu = service.addMenu(shopMenuName);
