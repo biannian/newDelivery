@@ -9,5 +9,5 @@ public class Seller {
     private boolean sellerSex;
     private String sellerName;
     private String sellerAddress;
-    private long sellerTel;
+    private String sellerTel;
 }
