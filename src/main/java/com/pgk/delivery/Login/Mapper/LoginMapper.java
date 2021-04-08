@@ -36,4 +36,6 @@ public interface LoginMapper {
     int addAccount(String openId,String wxName,String wxImage,int limit);
 
     int updateRiderInfo(Account account);
+
+    int addSellerAccount(Account account);
 }

@@ -59,6 +59,7 @@ SET accountPassword =#{accountPassword},accountName =#{accountName},accountLimit
 accountBan=#{accountBan}
 WHERE
 	openId =#{openId} and accountLimit=#{accountLimit}
+
     </update>
     <update id="updateRiderInfo">
          update rider set
@@ -75,11 +76,20 @@ WHERE
             insert into rider (riderAccountName,riderName,riderAddress,riderAge,riderSex,riderTel)
             values (#{accountName},#{name},#{address},#{age},#{sex},#{tel})
         </if>
+        <if test="3 == accountLimit">
+            insert into seller (sellerAccountName)
+            values (#{accountName})
+        </if>
     </insert>
     <insert id="addAccount">
         INSERT INTO account (openId, wxName, wxImage , accountLimit)
         VALUES
         (#{openId},#{wxName},#{wxImage},#{limit})
+    </insert>
+    <insert id="addSellerAccount">
+          INSERT INTO account (accountName, accountPassword, accountLimit , accountBan ,accountUserId)
+        VALUES
+        (#{accountName},#{accountPassword},#{accountLimit},#{accountBan},#{accountUserId})
     </insert>
     <select id="selectUserId" parameterType="com.pgk.delivery.Login.Pojo.Account"  resultType="java.lang.Integer">
         select ${tableId} from ${table} where ${tableAccountName} = #{accountName}

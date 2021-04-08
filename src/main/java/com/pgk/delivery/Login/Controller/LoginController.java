@@ -66,7 +66,7 @@ public class LoginController {
     public Result<?> queryById(String accountName) {
         Result<?> account = service.queryById(accountName);
         if (account.getCode() == 200) {
-            return Result.success(-1);
+            return Result.fail(-1);
         } else {
             return Result.success();
         }

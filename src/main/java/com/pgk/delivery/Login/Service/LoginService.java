@@ -93,6 +93,15 @@ public class LoginService {
 
             account.setAccountUserId(userId);
 
+            if (account.getOpenId() == null){
+            int a = mapper.addSellerAccount(account);
+                if (a == 1) {
+                    String jwtToken = JWTUtil.createToken(account.getAccountName(), account.getAccountLimit(), account.getAccountUserId());
+                    return Result.success(jwtToken);
+                } else {
+                    return Result.fail(ErrorCode.REGISTER_ERRoR);
+                }
+            }
             int msg = mapper.register(account);
 
             if (msg == 1) {
@@ -138,11 +147,16 @@ public class LoginService {
         List<Account> account = mapper.wxLogin(openId,limit);
         HashMap<String, String> map = new HashMap<>();
 
-        if (account.size() == 0) {
+        if (account.size() == 0 ) {
             mapper.addAccount(openId, wxName, wxImage,limit);
             map.put("openId", openId);
             map.put("token", "");
         } else {
+            if (account.get(0).getAccountName() == null){
+                map.put("openId", openId);
+                map.put("token", "");
+                return Result.success(map);
+            }
             for (Account newAccount : account) {
                 if (newAccount.getAccountLimit() == limit) {
                     String jwtToken = JWTUtil.createToken(newAccount.getAccountName(), newAccount.getAccountLimit(), newAccount.getAccountUserId());
