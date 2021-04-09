@@ -254,7 +254,7 @@ public class ShopController {
 
     @RequestMapping("/pictureAdd.do")
     public Result<?> pictureAdd(@RequestParam("picture") MultipartFile picture) {
-        String path = "D:/IdeaProject/Delivery/src/main/resources/static/picture";
+        String path = "D:/IdeaProject/newDelivery/src/main/resources/static/picture";
         File filePath = new File(path);
         //如果目录不存在，创建目录
         if (!filePath.exists() && !filePath.isDirectory()) {
