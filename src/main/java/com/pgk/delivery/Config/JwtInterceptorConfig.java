@@ -17,8 +17,8 @@ public class JwtInterceptorConfig implements WebMvcConfigurer {
     }
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-   registry.addResourceHandler("/picture/**").addResourceLocations("file:D:/IdeaProject/Delivery/src/main/resources/static/picture/");
-        //      registry.addResourceHandler("/picture/**").addResourceLocations("file:C:/PGK/jar/delivery.jar/BOOT-INF/classes/static/picture");
+//   registry.addResourceHandler("/picture/**").addResourceLocations("file:D:/IdeaProject/Delivery/src/main/resources/static/picture/");
+           registry.addResourceHandler("/picture/**").addResourceLocations("file:C:/picture");
     }
 
     @Bean

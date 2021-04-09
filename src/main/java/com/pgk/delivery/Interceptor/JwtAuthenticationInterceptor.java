@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.Date;
 
 public class JwtAuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
@@ -20,7 +21,8 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-
+        Date data = new Date();
+        System.out.println(data+" --> "+request.getRequestURI());
 
         String token = request.getHeader("token");
 

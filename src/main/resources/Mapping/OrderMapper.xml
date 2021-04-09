@@ -157,18 +157,27 @@ left join rider on `order`.orderRiderAccount = rider.riderAccountName
  WHERE
 	 `order`.orderId = #{orderId}
  </if>
+--  查询商家未接单订单
 <if test=" 0 != shopId and orderState == 0 ">
 WHERE
 	shop.shopId = #{shopId}  and  `order`.orderState = '0'
 </if>
-<if test="orderState != 0 and shopId != 0">
+-- 查询商家退款订单
+<if test=" 0 != shopId and orderState == -2 ">
+WHERE
+	shop.shopId = #{shopId}  and  `order`.orderState = '-2'
+</if>
+-- 查询店家所有订单
+<if test="orderState == -3 and shopId != 0">
 WHERE
 	shop.shopId = #{shopId}
 </if>
+-- 骑手抢单的所有订单
 <if test=" null != orderRiderAccount and orderState != 3 ">
 	WHERE
 	`order`.orderState = #{orderState}
 </if>
+-- 骑手已接订单
 <if test=" null != orderRiderAccount and orderState == 3">
       WHERE
 `order`.orderState IN ('3','4','5')
