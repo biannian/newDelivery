@@ -21,8 +21,6 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Date data = new Date();
-        System.out.println(data+" --> "+request.getRequestURI());
 
         String token = request.getHeader("token");
 
@@ -47,6 +45,8 @@ public class JwtAuthenticationInterceptor implements HandlerInterceptor {
                 return false;
             }
             String accountName = JWTUtil.getAudience(token);
+            Date data = new Date();
+            System.out.println(data+"   "+accountName+" --> "+request.getRequestURI());
             Account account = loginService.queryByName(accountName);
             if (account == null) {
                 System.out.println("token中没有此用户");
