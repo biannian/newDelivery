@@ -100,11 +100,10 @@ public class OrderService implements com.pgk.delivery.Order.Service.OrderService
         int orderMsg = mapper.deleteOrder(orderId);
         int shoppingMsg = mapper.delectShopping(orderId);
         if (orderMsg == 1) {
-            return Result.success(shoppingMsg);
+            return Result.success(orderMsg);
         } else {
             return Result.fail(500);
         }
-
     }
 
     @Override
