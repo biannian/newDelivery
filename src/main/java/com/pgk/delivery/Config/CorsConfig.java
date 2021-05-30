@@ -20,6 +20,8 @@ public class CorsConfig {
         corsConfiguration.addAllowedOrigin("http://121.5.222.148:8000");//前端的开发地址
         corsConfiguration.addAllowedOrigin("http://localhost:8080");//前端的开发地址
         corsConfiguration.addAllowedOrigin("http://localhost:8000");//前端的开发地址
+        corsConfiguration.addAllowedOrigin("http://192.168.1.102:8080");//前端的开发地址
+        corsConfiguration.addAllowedOrigin("http://192.168.1.102:8000");//前端的开发地址
         corsConfiguration.addAllowedHeader("*");
         corsConfiguration.addAllowedMethod("*");
 

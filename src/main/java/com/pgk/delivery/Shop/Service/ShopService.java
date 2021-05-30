@@ -1,6 +1,7 @@
 package com.pgk.delivery.Shop.Service;
 
 import com.pgk.delivery.Model.Result;
+import com.pgk.delivery.Shop.Pojo.Comment;
 import com.pgk.delivery.Shop.Pojo.Commodity;
 import com.pgk.delivery.Shop.Pojo.Shop;
 
@@ -42,4 +43,8 @@ public interface ShopService {
     Result<?> queryShopInfo(int shopId);
 
     Result<?> selectShopType();
+
+    Result<?> addComment(Comment comment);
+
+    Result<?> selectComment(int shopId);
 }

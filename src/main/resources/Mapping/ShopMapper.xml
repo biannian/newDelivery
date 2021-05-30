@@ -59,6 +59,22 @@ VALUES(
     <insert id="addBuyerLikeShop">
         insert into buyerLikeShop (buyerAccount,shopId) VALUES (#{buyerAccount},#{shopId})
     </insert>
+    <insert id="addComment">
+INSERT INTO COMMENT (
+	shopId,
+	orderId,
+	commentImg,
+	commentInfo,
+	accountName,
+	commentTime,
+	commentScore,
+	shopReply,
+	shopReplyTime
+)
+VALUES
+	(
+		#{shopId},#{orderId},#{commentImg},#{commentInfo},#{accountName},#{commentTime},#{commentScore},#{shopReply},#{shopReplyTime})
+    </insert>
     <update id="commodityEdit" parameterType="com.pgk.delivery.Shop.Pojo.Commodity">
   update commodity set
 commodityName = #{commodityName},
@@ -261,5 +277,24 @@ WHERE
     </select>
     <select id="selectShopType" resultType="com.pgk.delivery.Shop.Pojo.Shop">
         select shopTypeId,shopType from shoptype
+    </select>
+    <select id="selectComment" resultType="com.pgk.delivery.Shop.Pojo.Comment">
+SELECT
+	`comment`.shopId,
+	`comment`.orderId,
+	`comment`.commentImg,
+	`comment`.commentInfo,
+	`comment`.accountName,
+	`comment`.commentTime,
+	`comment`.commentScore,
+	`comment`.shopReply,
+	`comment`.shopReplyTime,
+	account.wxName,
+	account.wxImage
+FROM
+	`comment`
+LEFT JOIN account ON `comment`.accountName = account.accountName
+WHERE
+	`comment`.shopId = #{shopId}
     </select>
 </mapper>

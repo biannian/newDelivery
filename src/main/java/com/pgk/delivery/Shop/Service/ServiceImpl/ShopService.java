@@ -2,6 +2,7 @@ package com.pgk.delivery.Shop.Service.ServiceImpl;
 
 import com.pgk.delivery.Model.Result;
 import com.pgk.delivery.Shop.Mapper.ShopMapper;
+import com.pgk.delivery.Shop.Pojo.Comment;
 import com.pgk.delivery.Shop.Pojo.Commodity;
 import com.pgk.delivery.Shop.Pojo.Shop;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -189,5 +190,22 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
     public Result<?> selectShopType() {
         List<Shop> ShopType = mapper.selectShopType();
         return Result.success(ShopType);
+    }
+
+    @Override
+    public Result<?> addComment(Comment comment) {
+        int  msg = mapper.addComment(comment);
+        if (msg == 1){
+            return Result.success(msg);
+        }else {
+            return Result.fail();
+        }
+
+    }
+
+    @Override
+    public Result<?> selectComment(int shopId) {
+        List<Comment> msg = mapper.selectComment(shopId);
+            return Result.success(msg);
     }
 }

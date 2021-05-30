@@ -1,5 +1,6 @@
 package com.pgk.delivery.Shop.Mapper;
 
+import com.pgk.delivery.Shop.Pojo.Comment;
 import com.pgk.delivery.Shop.Pojo.Commodity;
 import com.pgk.delivery.Shop.Pojo.Shop;
 import org.apache.ibatis.annotations.Mapper;
@@ -51,4 +52,8 @@ public interface ShopMapper {
     Shop queryShopInfo(int shopId);
 
     List<Shop> selectShopType();
+
+    int addComment(Comment comment);
+
+    List<Comment> selectComment(int shopId);
 }

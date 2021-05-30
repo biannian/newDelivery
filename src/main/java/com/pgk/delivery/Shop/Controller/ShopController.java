@@ -1,6 +1,7 @@
 package com.pgk.delivery.Shop.Controller;
 
 import com.pgk.delivery.Model.Result;
+import com.pgk.delivery.Shop.Pojo.Comment;
 import com.pgk.delivery.Shop.Pojo.Commodity;
 import com.pgk.delivery.Shop.Pojo.Shop;
 import com.pgk.delivery.Shop.Service.ShopService;
@@ -297,5 +298,26 @@ public class ShopController {
         }
     }
 
+
+    /**
+     * 新增评论
+     *
+     * @return
+     */
+    @RequestMapping("/addComment.do")
+    public Result<?> addComment(@RequestBody Comment comment) {
+        Result<?> msg = service.addComment(comment);
+        return msg;
+    }
+    /**
+     * 查询店铺评论
+     *
+     * @return
+     */
+    @RequestMapping("/selectComment.do")
+    public Result<?> selectComment(int shopId) {
+        Result<?> msg = service.selectComment(shopId);
+        return msg;
+    }
 
 }
