@@ -13,4 +13,6 @@ public class Comment {
     private int commentScore;
     private String shopReply;
     private String shopReplyTime;
+    private String wxName;
+    private String wxImage;
 }

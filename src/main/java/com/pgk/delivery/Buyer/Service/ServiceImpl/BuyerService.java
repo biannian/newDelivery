@@ -17,7 +17,7 @@ public class BuyerService implements com.pgk.delivery.Buyer.Service.BuyerService
     @Override
     public Result<?> getBuyerAddress(String accountName) {
         Buyer buyer = mapper.getBuyerAddress(accountName);
-        if (buyer.getBuyerName() == null ||buyer.getBuyerName().equals("")){
+        if (buyer.getBuyerAccountName() == null ||buyer.getBuyerAccountName().equals("")){
             return Result.fail(-1);
         }else {
             return Result.success(buyer);

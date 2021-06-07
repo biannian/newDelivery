@@ -56,4 +56,6 @@ public interface ShopMapper {
     int addComment(Comment comment);
 
     List<Comment> selectComment(int shopId);
+
+    int updateComment(Comment comment);
 }

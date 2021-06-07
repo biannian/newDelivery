@@ -208,4 +208,10 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
         List<Comment> msg = mapper.selectComment(shopId);
             return Result.success(msg);
     }
+
+    @Override
+    public Result<?> updateComment(Comment comment) {
+       int msg = mapper.updateComment(comment);
+        return Result.success(msg);
+    }
 }

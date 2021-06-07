@@ -47,4 +47,6 @@ public interface ShopService {
     Result<?> addComment(Comment comment);
 
     Result<?> selectComment(int shopId);
+
+    Result<?> updateComment(Comment comment);
 }

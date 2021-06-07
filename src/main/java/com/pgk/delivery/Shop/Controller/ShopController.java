@@ -314,10 +314,21 @@ public class ShopController {
      *
      * @return
      */
+    @PassToken
     @RequestMapping("/selectComment.do")
     public Result<?> selectComment(int shopId) {
         Result<?> msg = service.selectComment(shopId);
         return msg;
     }
 
+    /**
+     * 商家回复评价
+     * @param comment
+     * @return
+     */
+    @RequestMapping("/updateComment.do")
+    public Result<?> updateComment(Comment comment) {
+        Result<?> msg = service.updateComment(comment);
+        return msg;
+    }
 }
