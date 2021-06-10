@@ -58,4 +58,6 @@ public interface ShopMapper {
     List<Comment> selectComment(int shopId);
 
     int updateComment(Comment comment);
+
+    void updateShopScore(double shopScore,int shopId);
 }

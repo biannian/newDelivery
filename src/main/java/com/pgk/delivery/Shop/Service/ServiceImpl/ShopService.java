@@ -194,13 +194,18 @@ public class ShopService implements com.pgk.delivery.Shop.Service.ShopService {
 
     @Override
     public Result<?> addComment(Comment comment) {
+        Shop shop = mapper.queryById(comment.getShopId());
+        if (shop.getShopScore() == '0'){
+            mapper.updateShopScore( comment.getCommentScore(),comment.getShopId());
+        }else {
+            mapper.updateShopScore((shop.getShopScore() + comment.getCommentScore())/2,comment.getShopId());
+        }
         int  msg = mapper.addComment(comment);
         if (msg == 1){
             return Result.success(msg);
         }else {
             return Result.fail();
         }
-
     }
 
     @Override

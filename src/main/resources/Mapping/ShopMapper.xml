@@ -107,6 +107,9 @@ SET shopReply =#{shopReply},
 WHERE
 	orderId = #{orderId}
     </update>
+    <update id="updateShopScore">
+        update shop set shopScore = #{shopScore} where shopId = #{shopId}
+    </update>
     <delete id="delectCommodity">
         delete from commodity where commodityId = #{commodityId}
     </delete>
